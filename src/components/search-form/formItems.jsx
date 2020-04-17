@@ -1,7 +1,7 @@
 import React from 'react';
 import { Input, Select, Button } from 'antd';
 import styles from './index.module.less';
-import IconFont from '../IconFont';
+import IconFont from '../icon-font';
 import RangePicker from '../range-picker';
 import InputRange from '../input-range';
 

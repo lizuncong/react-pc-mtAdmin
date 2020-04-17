@@ -1,22 +1,64 @@
 import React from 'react';
+import { Button } from 'antd';
+import PasswordInput from 'components/input/password';
 import styles from './index.module.less';
-import { getStoreList } from './api';
 
 export default class Login extends React.Component {
-  async componentDidMount() {
-    const res = await getStoreList({
-      username: 'lzc',
-      password: '123456',
-    });
-    if (res.code === 0) {
-      console.log(res);
-    }
+  constructor(props) {
+    super(props);
+    this.state = {
+      username: '',
+      password: '',
+    };
   }
 
   render() {
+    const {
+      username, password,
+    } = this.state;
+    const { history } = this.props;
     return (
       <div className={styles.container}>
-        <div>登录页面</div>
+        <div className={styles.loginForm}>
+          <h2>后台管理系统</h2>
+          <div className={styles.label}>手机号</div>
+          <input
+            type="text"
+            value={username}
+            onChange={(e) => {
+              const { value } = e.target;
+              this.setState({
+                username: value,
+              });
+            }}
+          />
+          <div className={styles.label}>密码</div>
+          <PasswordInput
+            showEye
+            className={styles.passwordRow}
+            inputClassName={styles.password}
+            value={password}
+            onChange={(value) => this.setState({ password: value })}
+          />
+          <Button
+            type="primary"
+            onClick={() => {
+              console.log('username...', username);
+              console.log('password...', password);
+            }}
+          >
+            登录
+          </Button>
+          <div className={styles.register}>
+            <span
+              onClick={() => {
+                history.push('/register');
+              }}
+            >
+              注册账号！
+            </span>
+          </div>
+        </div>
       </div>
     );
   }

@@ -1,6 +1,6 @@
 import React from 'react';
 import styles from './index.module.less';
-import MesIcon from '../IconFont';
+import MesIcon from '../icon-font';
 
 import compress from './compress';
 

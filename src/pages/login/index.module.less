@@ -1,28 +1,66 @@
+@import '../../style/default.less';
 .container{
-  //height: calc(100vh);
+  height: calc(100vh);
   display: flex;
+  align-items: center;
+  justify-content: center;
+  background: url('../../assets/login_bg.jpg');
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 100%;
   overflow: hidden;
-  .titleRow{
+  .loginForm{
     display: flex;
-    justify-content: space-between;
-  }
-  .test{
-    background-color: white;
+    flex-direction: column;
+    width: 435px;
+    height: 397px;
+    position: relative;
+    background: #fff;
+    padding: 25px;
+    border-radius: 8px;
+    box-shadow: 0 0 15px #545454;
+    h2{
+      font-size: 24px;
+      padding-bottom: 28px;
+      color: @colorW;
+      text-align: center;
+    }
+    .label{
+      display: block;
+      font-size: 16px;
+      color: #333;
+      font-weight: 400;
+      padding-bottom: 8px;
+    }
+    input{
+      padding: 9px;
+      font-size: 16px;
+      margin: 3px 0 25px;
+      color: #666666;
+      background: #f0f0f0;
+      border: none;
+      font-weight: 400;
+      outline: none;
+      transition: all 0.3s ease-out;
+      border-radius: 6px;
+    }
+    .passwordRow{
+      margin: 3px 0 25px;
+      .password{
+        width: 100%;
+        margin: 0;
+      }
+    }
+    .register{
+      text-align: center;
+      color: @colorW;
+      font-size: 14px;
+      padding-top: 20px;
+      span{
+        cursor: pointer;
+      }
+    }
   }
 }
 
-.count{
-  height: 0;
-  width: 50%;
-  padding-top: 20%;
-  background-color: red;
-  position: relative;
-  overflow: hidden;
-}
-.middle{
-  position: absolute;
-  left:0;
-  top: 0;
-  bottom: 0;
-  width: 50%;
-}

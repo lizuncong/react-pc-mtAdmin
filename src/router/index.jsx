@@ -1,17 +1,17 @@
-import { hot } from 'react-hot-loader/root';
 import React from 'react';
-import importedComponent from 'react-imported-component';
+import loadable from '@loadable/component';
 import {
   HashRouter, Route, Switch, Redirect,
 } from 'react-router-dom';
 
-const Login = importedComponent(() => import(/* webpackChunkName: "login" */'../pages/login'));
-const AdminLayout = importedComponent(() => import(/* webpackChunkName: "adminLayout" */'../pages/layout/admin'));
-const DetailLayout = importedComponent(() => import(/* webpackChunkName: "detailLayout" */'../pages/layout/detail'));
-const Home = importedComponent(() => import(/* webpackChunkName: "home" */'../pages/home'));
-const StoreList = importedComponent(() => import(/* webpackChunkName: "storeList" */'../pages/store/list'));
-const StoreDetail = importedComponent(() => import(/* webpackChunkName: "storeDetail" */'../pages/store/detail'));
-const App = importedComponent(() => import(/* webpackChunkName: "app" */'../App'));
+const Login = loadable(() => import(/* webpackChunkName: "login" */'../pages/login'));
+const Register = loadable(() => import(/* webpackChunkName: "login" */'../pages/register'));
+const AdminLayout = loadable(() => import(/* webpackChunkName: "adminLayout" */'../pages/layout/admin'));
+const DetailLayout = loadable(() => import(/* webpackChunkName: "detailLayout" */'../pages/layout/detail'));
+const Home = loadable(() => import(/* webpackChunkName: "home" */'../pages/home'));
+const StoreList = loadable(() => import(/* webpackChunkName: "storeList" */'../pages/store/list'));
+const StoreDetail = loadable(() => import(/* webpackChunkName: "storeDetail" */'../pages/store/detail'));
+const App = loadable(() => import(/* webpackChunkName: "app" */'../App'));
 
 class IRouter extends React.Component {
   render() {
@@ -20,6 +20,7 @@ class IRouter extends React.Component {
         <App>
           <Switch>
             <Route path="/login" component={Login} />
+            <Route path="/register" component={Register} />
             <Route
               path="/detail"
               render={() => (
@@ -51,6 +52,4 @@ class IRouter extends React.Component {
   }
 }
 
-// export default IRouter;
-
-export default hot(IRouter);
+export default IRouter;
