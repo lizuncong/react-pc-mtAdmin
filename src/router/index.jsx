@@ -1,8 +1,8 @@
 import React from 'react';
-import loadable from '@loadable/component';
 import {
   HashRouter, Route, Switch, Redirect,
 } from 'react-router-dom';
+import loadable from '@loadable/component';
 
 const Login = loadable(() => import(/* webpackChunkName: "login" */'../pages/login'));
 const Register = loadable(() => import(/* webpackChunkName: "login" */'../pages/register'));
