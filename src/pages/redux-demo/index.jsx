@@ -61,4 +61,10 @@ const mapStateToProps = (state) => state.reduxDemo;
 
 
 // 任何时候，只要store变化，所有connected组件中的所有mapStateToProps方法都会执行，因此也是很耗性能的
+// const mapStateToProps = (state, ownProps = {}) => {
+//   console.log(state) // state
+//   console.log(ownProps) // {}
+// }
+// 关于mapStateToProps的ownProps，如果ownProps变化，也会执行mapStateToProps。这个也会影响性能
+// 因此只在有必要的时候才加上ownProps
 export default connect(mapStateToProps, mapDispatchToProps)(ReduxDemo);
