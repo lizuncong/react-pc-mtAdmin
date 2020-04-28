@@ -55,5 +55,10 @@ const mapStateToProps = (state) => state.reduxDemo;
 // dispatch派发action
 // export default connect(mapStateToProps, null)(ReduxDemo);
 
+// 如果不传mapStateToProps参数，则store变化并不会导致ReduxDemo re-render。
+// 如果传了mapStateToProps参数，比如const mapStateToProps = (state) => state.reduxDemo;
+// 则state.reduxDemo变化，ReduxDemo才会re-render。state中其他值变化不会导致ReduxDemo re-render。
 
+
+// 任何时候，只要store变化，所有connected组件中的所有mapStateToProps方法都会执行，因此也是很耗性能的
 export default connect(mapStateToProps, mapDispatchToProps)(ReduxDemo);
