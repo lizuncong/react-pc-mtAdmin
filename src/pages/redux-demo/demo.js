@@ -76,3 +76,11 @@ store.dispatch = (action) => {
 // store.dispatch(fetchPosts('reactjs')).then(() =>
 //   console.log(store.getState())
 // );
+
+// redux-thunk派发函数差不多是这样：
+// const result = store.dispatch((dispatch, getState, extraArgument) => {
+//   console.log('哈哈哈哈');
+//   // 当然也可以返回
+//   return 'test';
+// });
+// console.log(result); // 'test'

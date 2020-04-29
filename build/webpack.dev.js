@@ -18,7 +18,7 @@ const devConfig = {
     historyApiFallback: true,
     proxy: {
       '/api': {
-        target: 'http://localhost:8000',
+        target: 'http://localhost:5000',
         // secure: false, // 如果请求的网址是https，需要配置secure: false
         pathRewrite: {
           // '/server': '',

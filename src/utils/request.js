@@ -2,40 +2,16 @@ import axios from 'axios';
 import qs from 'qs';
 import { notification } from 'antd';
 
-let count = 0;
 class Request {
-  constructor() {
-    count += 1;
-    console.log(`axios实例被创建了${count}次`);
-  }
-
   request(method, url, data, ...rest) {
     const config = Object.assign({
       method,
       url,
       baseURL: '/api',
-      // `onUploadProgress` allows handling of progress events for uploads
-      // onUploadProgress(progressEvent) {
-      // console.log('上传进度。。', progressEvent, (progressEvent.loaded * 100) / progressEvent.total)
-      // Do whatever you want with the native progress event
-      // },
-
-      // `onDownloadProgress` allows handling of progress events for downloads
-      // onDownloadProgress(progressEvent) {
-      // console.log('下载进度...', progressEvent, (progressEvent.loaded * 100) / progressEvent.total)
-      // Do whatever you want with the native progress event
-      // },
     }, ...rest);
     if (method === 'get') {
-      // `params` are the URL parameters to be sent with the request
-      // Must be a plain object or a URLSearchParams object
       config.params = data;
     } else if (method === 'post') {
-      // `data` is the data to be sent as the request body
-      // Only applicable for request methods 'PUT', 'POST', and 'PATCH'
-      // When no `transformRequest` is set, must be of one of the following types:
-      // - string, plain object, ArrayBuffer, ArrayBufferView, URLSearchParams
-      // - Browser only: FormData, File, Blob
       config.data = data;
     }
     return new Promise((resolve) => {
@@ -102,7 +78,7 @@ class Request {
           param.append(key, item);
         });
       } else {
-        param.append(key, data[key]);
+        param.append(key, value);
       }
     });
     const headers = { 'content-type': 'multipart/form-data' };

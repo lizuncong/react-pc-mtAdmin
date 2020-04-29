@@ -1,11 +1,43 @@
 @import '../../style/default.less';
 .container{
   height: calc(100vh);
-  background: url('../../assets/login_bg.jpg');
-  background-attachment: fixed;
-  background-repeat: no-repeat;
-  background-position: center;  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-size: 100%;
+  overflow: auto;
+  padding-top: 20px;
+  //display: flex;
+  //align-items: center;
+  //justify-content: center;
+  //background-size: 100%;
+  .fileRow{
+    width: 100%;
+    display: flex;
+  }
+  .imgContainer{
+    position: relative;
+    width: 102px;
+    height: 102px;
+    flex-shrink: 0;
+    margin-right: 12px;
+    .img{
+      width: 100%;
+      height: 100%;
+    }
+    .delete{
+      position: absolute;
+      top: -8px;
+      right: -8px;
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      background-color: black;
+      color: #FFFFFF;
+      font-size: 10px;
+    }
+  }
+  .uploadNone{
+    display: none;
+  }
 }
