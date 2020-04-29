@@ -5,12 +5,13 @@ import {
   Select,
   Checkbox,
   Button,
-  Upload,
-  message,
+  // Upload,
+  // message,
 } from 'antd';
 import styles from './index.module.less';
 // import { getFileUrl } from '../../utils';
 import { register } from '../../api/user';
+import ImgUpload from '../../components/img-upload';
 
 const { Option } = Select;
 
@@ -54,17 +55,17 @@ const tailFormItemLayout = {
   },
 };
 
-const validateFile = (file) => {
-  const isJpgOrPng = file.type === 'image/jpeg' || file.type === 'image/png';
-  if (!isJpgOrPng) {
-    message.error('只能上传 JPG/PNG 类型的文件!');
-  }
-  const isLt2M = file.size / 1024 / 1024 < 2;
-  if (!isLt2M) {
-    message.error('图片必须小于 2MB!');
-  }
-  return isJpgOrPng && isLt2M;
-};
+// const validateFile = (file) => {
+//   const isJpgOrPng = file.type === 'image/jpeg' || file.type === 'image/png';
+//   if (!isJpgOrPng) {
+//     message.error('只能上传 JPG/PNG 类型的文件!');
+//   }
+//   const isLt2M = file.size / 1024 / 1024 < 2;
+//   if (!isLt2M) {
+//     message.error('图片必须小于 2MB!');
+//   }
+//   return isJpgOrPng && isLt2M;
+// };
 
 const RegistrationForm = () => {
   const [form] = Form.useForm();
@@ -77,7 +78,6 @@ const RegistrationForm = () => {
     register(params);
   };
   const fileList = [];
-  console.log('filelist..', fileList);
   return (
     <div className={styles.container}>
       <Form
@@ -86,7 +86,7 @@ const RegistrationForm = () => {
         name="register"
         onFinish={onFinish}
         initialValues={{
-          residence: ['zhejiang', 'hangzhou', 'xihu'],
+          avatar: [],
           prefix: '86',
         }}
         scrollToFirstError
@@ -176,7 +176,7 @@ const RegistrationForm = () => {
             <Form.Item
               name="avatar"
               noStyle
-              valuePropName="fileList"
+              valuePropName="fileObjs"
               rules={[
                 {
                   required: true,
@@ -184,23 +184,29 @@ const RegistrationForm = () => {
                 },
               ]}
             >
-              <Upload
-                  // name="avatar"
-                className={fileList.length > 1 && styles.uploadNone}
-                listType="picture-card"
-                showUploadList={false}
-                // fileList={fileList}
-                // onRemove={(file) => {
-                //   const filelist = form.getFieldValue('avatar');
-                //   const index = filelist.indexOf(file);
-                //   const newFileList = filelist.slice();
-                //   newFileList.splice(index, 1);
-                //   form.setFieldsValue({ avatar: newFileList });
+              <ImgUpload
+                valuePropName="fileObjs"
+                // onChange={(file) => {
+                //   console.log('onchange..upload..', file);
                 // }}
-                beforeUpload={(file) => validateFile(file)}
-              >
-                选择图片
-              </Upload>
+              />
+              {/* <Upload */}
+              {/*    // name="avatar" */}
+              {/*  className={fileList.length > 1 && styles.uploadNone} */}
+              {/*  listType="picture-card" */}
+              {/*  showUploadList={false} */}
+              {/*  // fileList={fileList} */}
+              {/*  // onRemove={(file) => { */}
+              {/*  //   const filelist = form.getFieldValue('avatar'); */}
+              {/*  //   const index = filelist.indexOf(file); */}
+              {/*  //   const newFileList = filelist.slice(); */}
+              {/*  //   newFileList.splice(index, 1); */}
+              {/*  //   form.setFieldsValue({ avatar: newFileList }); */}
+              {/*  // }} */}
+              {/*  beforeUpload={(file) => validateFile(file)} */}
+              {/* > */}
+              {/*  选择图片 */}
+              {/* </Upload> */}
             </Form.Item>
             {
               fileList.map((file) => (

@@ -8,9 +8,9 @@ class Upload extends React.Component {
   constructor(props) {
     super(props);
     this.fileInput = React.createRef();
-    this.state = {
-      fileObjs: [], // item { originFile, compressBase64, compressFile }
-    };
+    // this.state = {
+    //   fileObjs: [], // item { originFile, compressBase64, compressFile }
+    // };
   }
 
   getFileUrl(file) {
@@ -25,14 +25,14 @@ class Upload extends React.Component {
   }
 
   compressCallBack(file, fileObj, result) {
-    const { fileObjs } = this.state;
-    const { onChange } = this.props;
+    // const { fileObjs } = this.state;
+    const { onChange, fileObjs } = this.props;
     file.compressing = false; // 压缩完成
     fileObj.compressBase64 = result.compressBase64;
     fileObj.compressFile = result.compressFile;
-    this.setState({ fileObjs: [...fileObjs] });
+    // this.setState({ fileObjs: [...fileObjs] });
     if (onChange) {
-      onChange(fileObjs);
+      onChange([...fileObjs]);
     }
     if (fileObjs.length && fileObjs.every((fileObjItem) => fileObjItem.compressBase64)) {
       console.log('全部压缩完成', fileObjs);
@@ -40,8 +40,8 @@ class Upload extends React.Component {
   }
 
   onInputChange(e) {
-    const { fileObjs } = this.state;
-    const { onChange, compressStatus } = this.props;
+    // const { fileObjs } = this.state;
+    const { onChange, compressStatus, fileObjs } = this.props;
     Object.keys(e.target.files).forEach((key) => {
       const file = e.target.files[key];
 
@@ -68,16 +68,19 @@ class Upload extends React.Component {
       });
     });
 
-    this.setState({ fileObjs: [...fileObjs] });
+    // this.setState({ fileObjs: [...fileObjs] });
     if (onChange && compressStatus) {
-      onChange(fileObjs);
+      onChange([...fileObjs]);
     }
     e.target.value = '';
   }
 
   render() {
-    const { fileObjs } = this.state;
-    const { onChange, maxLength, className } = this.props;
+    // const { fileObjs } = this.state;
+    const {
+      onChange, maxLength, className, fileObjs,
+    } = this.props;
+    console.log('img-upload...', fileObjs);
     return (
       <div
         className={[styles.uploadContainer, className].join(' ')}
@@ -134,11 +137,11 @@ class Upload extends React.Component {
                           onClick={() => {
                             console.log(fileObjs);
                             fileObjs.splice(index, 1);
-                            this.setState({
-                              fileObjs: [...fileObjs],
-                            });
+                            // this.setState({
+                            //   fileObjs: [...fileObjs],
+                            // });
                             if (onChange) {
-                              onChange(fileObjs);
+                              onChange([...fileObjs]);
                             }
                           }}
                         />
