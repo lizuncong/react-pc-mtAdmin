@@ -1,9 +1,52 @@
 import axios from 'axios';
 import qs from 'qs';
-import { notification } from 'antd';
+import { notification, message } from 'antd';
 
+const showDomLoading = (domId) => {
+  if (!domId) return;
+  // 如果domId === 'root'，则全局加载lading
+  if (domId === 'body') {
+    const bodyOverlay = document.getElementById('body-overlay');
+    bodyOverlay.style.display = 'block';
+    return;
+  }
+  const dom = document.getElementById(domId);
+  if (!dom) return;
+  const { borderRadius } = dom.style;
+  const {
+    borderTopLeftRadius, borderTopRightRadiusRadius,
+    borderBottomLeftRadius, borderBottomRightRadius,
+  } = window.getComputedStyle(dom);
+  const {
+    left, top, height, width,
+  } = dom.getBoundingClientRect();
+  const domOverlay = document.getElementById('dom-loading');
+  if (borderRadius) {
+    domOverlay.style.borderRadius = borderRadius;
+  } else {
+    domOverlay.style.borderBottomLeftRadius = borderBottomLeftRadius;
+    domOverlay.style.borderBottomRightRadius = borderBottomRightRadius;
+    domOverlay.style.borderTopRightRadius = borderTopRightRadiusRadius;
+    domOverlay.style.borderTopLeftRadius = borderTopLeftRadius;
+  }
+  domOverlay.style.display = 'block';
+  domOverlay.style.left = `${left}px`;
+  domOverlay.style.top = `${top}px`;
+  domOverlay.style.width = `${width}px`;
+  domOverlay.style.height = `${height}px`;
+};
+const hideDomLoading = (domId) => {
+  if (!domId) return;
+  if (domId === 'body') {
+    const bodyOverlay = document.getElementById('body-overlay');
+    bodyOverlay.style.display = 'none';
+    return;
+  }
+  const domOverlay = document.getElementById('dom-loading');
+  domOverlay.style.display = 'none';
+};
 class Request {
-  request(method, url, data, ...rest) {
+  request(method, url, data, domId, ...rest) {
     const config = Object.assign({
       method,
       url,
@@ -14,10 +57,18 @@ class Request {
     } else if (method === 'post') {
       config.data = data;
     }
+    showDomLoading(domId);
     return new Promise((resolve) => {
       axios(config).then((res) => {
+        hideDomLoading(domId);
         if (res && res.status === 200) {
-          resolve(res.data);
+          console.log('res.status...', res.status, res.data);
+          const { data: { code, msg } } = res;
+          if (Number(code)) {
+            message.error(msg);
+            return;
+          }
+          resolve(data);
         } else {
           // 请求出错
           notification.open({
@@ -25,6 +76,7 @@ class Request {
           });
         }
       }).catch((error) => {
+        hideDomLoading(domId);
         console.log(`${url}-请求异常`, error);
         if (error.response) {
           // The request was made and the server responded with a status code
@@ -53,18 +105,18 @@ class Request {
   }
 
   get(options) {
-    return this.request('get', options.url, options.data);
+    return this.request('get', options.url, options.data, options.domId);
   }
 
   post(options) {
-    return this.request('post', options.url, options.data);
+    return this.request('post', options.url, options.data, options.domId);
   }
 
   // application/x-www-form-urlencoded
   postForm(options) {
     const data = options.data || {};
     const headers = { 'content-type': 'application/x-www-form-urlencoded' };
-    return this.request('post', options.url, qs.stringify(data), { headers });
+    return this.request('post', options.url, qs.stringify(data), options.domId, { headers });
   }
 
   // multipart/form-data
@@ -82,7 +134,7 @@ class Request {
       }
     });
     const headers = { 'content-type': 'multipart/form-data' };
-    return this.request('post', options.url, param, { headers });
+    return this.request('post', options.url, param, options.domId, { headers });
   }
 
   // static ajax(options){

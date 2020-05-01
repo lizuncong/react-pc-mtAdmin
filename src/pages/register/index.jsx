@@ -5,11 +5,8 @@ import {
   Select,
   Checkbox,
   Button,
-  // Upload,
-  // message,
 } from 'antd';
 import styles from './index.module.less';
-// import { getFileUrl } from '../../utils';
 import { register } from '../../api/user';
 import ImgUpload from '../../components/img-upload';
 
@@ -55,29 +52,16 @@ const tailFormItemLayout = {
   },
 };
 
-// const validateFile = (file) => {
-//   const isJpgOrPng = file.type === 'image/jpeg' || file.type === 'image/png';
-//   if (!isJpgOrPng) {
-//     message.error('只能上传 JPG/PNG 类型的文件!');
-//   }
-//   const isLt2M = file.size / 1024 / 1024 < 2;
-//   if (!isLt2M) {
-//     message.error('图片必须小于 2MB!');
-//   }
-//   return isJpgOrPng && isLt2M;
-// };
-
+const registerBtnId = 'register-btn';
 const RegistrationForm = () => {
   const [form] = Form.useForm();
-  // const [fileList, setFileList] = useState([]);
   const onFinish = (values) => {
     const params = { ...values };
     console.log('fileLisst...', values);
-    params.avatar = values.avatar.map((item) => item.originFileObj || item);
+    params.avatar = values.avatar.map((item) => item.compressFile);
     console.log('params...', params);
-    register(params);
+    register(params, registerBtnId);
   };
-  const fileList = [];
   return (
     <div className={styles.container}>
       <Form
@@ -87,7 +71,6 @@ const RegistrationForm = () => {
         onFinish={onFinish}
         initialValues={{
           avatar: [],
-          prefix: '86',
         }}
         scrollToFirstError
       >
@@ -163,70 +146,24 @@ const RegistrationForm = () => {
           </Select>
         </Form.Item>
         <Form.Item
-          // name="avatar"
           label="上传头像"
-          // rules={[
-          //   {
-          //     required: true,
-          //     message: '上传头像',
-          //   },
-          // ]}
         >
-          <div className={styles.fileRow}>
-            <Form.Item
-              name="avatar"
-              noStyle
+          <Form.Item
+            name="avatar"
+            noStyle
+            valuePropName="fileObjs"
+            rules={[
+              {
+                required: true,
+                message: '上传头像',
+              },
+            ]}
+          >
+            <ImgUpload
+              maxLength={1}
               valuePropName="fileObjs"
-              rules={[
-                {
-                  required: true,
-                  message: '上传头像',
-                },
-              ]}
-            >
-              <ImgUpload
-                valuePropName="fileObjs"
-                // onChange={(file) => {
-                //   console.log('onchange..upload..', file);
-                // }}
-              />
-              {/* <Upload */}
-              {/*    // name="avatar" */}
-              {/*  className={fileList.length > 1 && styles.uploadNone} */}
-              {/*  listType="picture-card" */}
-              {/*  showUploadList={false} */}
-              {/*  // fileList={fileList} */}
-              {/*  // onRemove={(file) => { */}
-              {/*  //   const filelist = form.getFieldValue('avatar'); */}
-              {/*  //   const index = filelist.indexOf(file); */}
-              {/*  //   const newFileList = filelist.slice(); */}
-              {/*  //   newFileList.splice(index, 1); */}
-              {/*  //   form.setFieldsValue({ avatar: newFileList }); */}
-              {/*  // }} */}
-              {/*  beforeUpload={(file) => validateFile(file)} */}
-              {/* > */}
-              {/*  选择图片 */}
-              {/* </Upload> */}
-            </Form.Item>
-            {
-              fileList.map((file) => (
-                <div key={file.uid} className={styles.imgContainer}>
-                  <img className={styles.img} src={file.fileUrl} alt="" />
-                  <div
-                    className={styles.delete}
-                    onClick={() => {
-                      const index = fileList.indexOf(file);
-                      const newFileList = fileList.slice();
-                      newFileList.splice(index, 1);
-                      form.setFieldsValue({ avatar: newFileList });
-                    }}
-                  >
-                    x
-                  </div>
-                </div>
-              ))
-            }
-          </div>
+            />
+          </Form.Item>
         </Form.Item>
         <Form.Item
           name="agreement"
@@ -241,7 +178,14 @@ const RegistrationForm = () => {
           </Checkbox>
         </Form.Item>
         <Form.Item {...tailFormItemLayout}>
-          <Button type="primary" htmlType="submit">
+          <Button
+            id={registerBtnId}
+            type="primary"
+            htmlType="submit"
+            onClick={() => {
+              console.log('注册按钮。。。');
+            }}
+          >
             注册
           </Button>
         </Form.Item>
