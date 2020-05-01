@@ -55,12 +55,11 @@ const tailFormItemLayout = {
 const registerBtnId = 'register-btn';
 const RegistrationForm = () => {
   const [form] = Form.useForm();
-  const onFinish = (values) => {
+  const onFinish = async (values) => {
     const params = { ...values };
-    console.log('fileLisst...', values);
     params.avatar = values.avatar.map((item) => item.compressFile);
-    console.log('params...', params);
-    register(params, registerBtnId);
+    const result = await register(params, registerBtnId);
+    console.log('result...', result);
   };
   return (
     <div className={styles.container}>
@@ -147,23 +146,19 @@ const RegistrationForm = () => {
         </Form.Item>
         <Form.Item
           label="上传头像"
+          name="avatar"
+          valuePropName="fileObjs"
+          rules={[
+            {
+              required: true,
+              message: '上传头像',
+            },
+          ]}
         >
-          <Form.Item
-            name="avatar"
-            noStyle
+          <ImgUpload
+            maxLength={1}
             valuePropName="fileObjs"
-            rules={[
-              {
-                required: true,
-                message: '上传头像',
-              },
-            ]}
-          >
-            <ImgUpload
-              maxLength={1}
-              valuePropName="fileObjs"
-            />
-          </Form.Item>
+          />
         </Form.Item>
         <Form.Item
           name="agreement"
@@ -180,11 +175,9 @@ const RegistrationForm = () => {
         <Form.Item {...tailFormItemLayout}>
           <Button
             id={registerBtnId}
+            className={styles.registerBtn}
             type="primary"
             htmlType="submit"
-            onClick={() => {
-              console.log('注册按钮。。。');
-            }}
           >
             注册
           </Button>
