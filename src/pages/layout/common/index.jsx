@@ -6,10 +6,7 @@ import mapDispatchToProps from './actions';
 class Common extends React.Component {
   componentDidMount() {
     const { getUserInfo } = this.props;
-    const user = getUserInfo();
-    user.then((res) => {
-      console.log('common...', res);
-    });
+    getUserInfo();
   }
 
   render() {

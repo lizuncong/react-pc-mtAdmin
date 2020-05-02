@@ -32,7 +32,52 @@
       color: #ff8605;
       cursor: pointer;
     }
+    .avatar{
+      width: 32px;
+      height: 32px;
+      cursor: pointer;
+    }
   }
+}
 
-
+.card{
+  width: 280px;
+  .cardHeader{
+    display: flex;
+    align-items: center;
+    padding: 28px 24px;
+    background: linear-gradient(250deg, #4BB5FF, #183DFF);
+    .avatar{
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      margin-right: 8px;
+    }
+    .infoCardText{
+      color: white;
+      .userName{
+        font-size: 15px;
+      }
+      .phone{
+        font-size: 14px;
+        color: rgba(255,255,255,0.8);
+      }
+    }
+  }
+  .dropDownDivider{
+    height: 0;
+    overflow: hidden;
+    border-top: 1px solid #f3f3f3;
+  }
+  .dropDownItem{
+    padding: 12px 24px;
+    cursor: pointer;
+    &:hover{
+      color: #1890FF;
+      background-color: #f8f9fa;
+    }
+  }
+  .logout{
+    font-weight: 500;
+  }
 }

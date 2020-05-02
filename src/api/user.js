@@ -23,3 +23,10 @@ export function getUserInfo() {
     url: '/user/info',
   });
 }
+
+// 登出
+export function logout() {
+  return request.post({
+    url: '/user/logout',
+  });
+}
