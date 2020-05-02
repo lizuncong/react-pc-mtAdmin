@@ -2,14 +2,21 @@ import React from 'react';
 import { Button } from 'antd';
 import PasswordInput from 'components/input/password';
 import styles from './index.module.less';
+import { login } from '../../api/user';
+import { getQueryObject } from '../../utils';
 
-export default class Login extends React.Component {
+class Login extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       username: '',
       password: '',
     };
+  }
+
+  componentDidMount() {
+    const { redirect } = getQueryObject();
+    this.redirectUrl = redirect || '/home';
   }
 
   render() {
@@ -42,9 +49,11 @@ export default class Login extends React.Component {
           />
           <Button
             type="primary"
-            onClick={() => {
-              console.log('username...', username);
-              console.log('password...', password);
+            onClick={async () => {
+              const result = await login({ phone: username, password });
+              if (result) {
+                history.replace(this.redirectUrl);
+              }
             }}
           >
             登录
@@ -63,3 +72,5 @@ export default class Login extends React.Component {
     );
   }
 }
+
+export default Login;

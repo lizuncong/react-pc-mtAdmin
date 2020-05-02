@@ -22,9 +22,17 @@ class Request {
         removeDomLoading(domId);
         if (res && res.status === 200) {
           const { code, msg, data: dataInfo } = res.data;
+          // code不等于0，说明条件等不满足，比如用户未登录之类的。
           if (Number(code)) {
             message.error(msg);
             resolve();
+
+            // 未登录，则重定向到登录页面
+            if (Number(code) === 10006) {
+              const { hash } = window.location;
+              const redirectUrl = hash.replace('#', '');
+              window.location.replace(`/#/login?redirect=${redirectUrl}`);
+            }
             return;
           } if (!Number(code) && dataInfo === 'success') {
             message.success(msg);

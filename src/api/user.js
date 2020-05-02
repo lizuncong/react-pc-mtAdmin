@@ -8,3 +8,18 @@ export function register(data, domId) {
     data,
   });
 }
+
+// 登录
+export function login(data) {
+  return request.post({
+    url: '/user/login',
+    data,
+  });
+}
+
+// 获取用户个人信息
+export function getUserInfo() {
+  return request.get({
+    url: '/user/info',
+  });
+}

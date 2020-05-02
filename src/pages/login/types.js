@@ -1,2 +1,0 @@
-export const CHANGE_MORE_VALUE = 'LOGIN/CHANGE_MORE_VALUE';
-export const RESET = 'LOGIN/RESET_STORE';

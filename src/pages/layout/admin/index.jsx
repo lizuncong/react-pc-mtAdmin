@@ -1,20 +1,28 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import NavLeft from './navLeft/connect';
-import Header from './header/connect';
+import Header from './header';
 import styles from './index.module.less';
+import Common from '../common';
 
-export default class Index extends React.Component {
+class Index extends React.Component {
   render() {
-    const { children } = this.props;
+    const { children, user } = this.props;
     return (
-      <div className={styles.container}>
+      <Common>
         <NavLeft />
         <div className={styles.main}>
-          <Header />
+          <Header user={user} />
           {children}
           {/* <Footer /> */}
         </div>
-      </div>
+      </Common>
     );
   }
 }
+
+const mapStateToProps = (state) => ({
+  user: state.app.user,
+});
+
+export default connect(mapStateToProps)(Index);

@@ -53,13 +53,16 @@ const tailFormItemLayout = {
 };
 
 const registerBtnId = 'register-btn';
-const RegistrationForm = () => {
+const RegistrationForm = (props) => {
+  const { history } = props;
   const [form] = Form.useForm();
   const onFinish = async (values) => {
     const params = { ...values };
     params.avatar = values.avatar.map((item) => item.compressFile);
     const result = await register(params, registerBtnId);
-    console.log('result...', result);
+    if (result) {
+      history.replace('/login');
+    }
   };
   return (
     <div className={styles.container}>

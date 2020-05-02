@@ -1,12 +1,13 @@
 import React from 'react';
+import Common from '../common';
 
 class DetailLayout extends React.Component {
   render() {
     const { children } = this.props;
     return (
-      <div>
+      <Common>
         {children}
-      </div>
+      </Common>
     );
   }
 }

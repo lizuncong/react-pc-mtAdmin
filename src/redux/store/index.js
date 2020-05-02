@@ -1,8 +1,7 @@
-// import { createStore, applyMiddleware } from 'redux';
-import { createStore } from 'redux';
-// import thunk from 'redux-thunk';
+import { createStore, applyMiddleware } from 'redux';
+import thunk from 'redux-thunk';
 import rootReducer from '../reducer';
-// import request from '../../utils/request';
+import request from '../../utils/request';
 
 // 安装redux-devtools-extension的可视化工具。
 // import { composeWithDevTools } from 'redux-devtools-extension'
@@ -11,6 +10,6 @@ import rootReducer from '../reducer';
 // }
 // const configureStore = () => createStore(reducer, initialState);
 
-export default createStore(rootReducer);
+// export default createStore(rootReducer);
 
-// export default createStore(rootReducer, applyMiddleware(thunk.withExtraArgument(request)));
+export default createStore(rootReducer, applyMiddleware(thunk.withExtraArgument(request)));

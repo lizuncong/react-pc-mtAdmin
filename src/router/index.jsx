@@ -13,7 +13,7 @@ const DetailLayout = loadable(() => import(/* webpackChunkName: "detailLayout" *
 const Home = loadable(() => import(/* webpackChunkName: "home" */'../pages/home'));
 const StoreList = loadable(() => import(/* webpackChunkName: "storeList" */'../pages/store/list'));
 const StoreDetail = loadable(() => import(/* webpackChunkName: "storeDetail" */'../pages/store/detail'));
-const App = loadable(() => import(/* webpackChunkName: "app" */'../App'));
+const App = loadable(() => import(/* webpackChunkName: "app" */'../app'));
 
 class IRouter extends React.Component {
   render() {
