@@ -1,6 +1,7 @@
 import React from 'react';
 import styles from './index.module.less';
 import Popover from '../../../../components/popover';
+import ScreenFull from '../../../../components/screen-full';
 import { logout } from '../../../../api/user';
 import './header.less';
 
@@ -52,6 +53,9 @@ class Header extends React.Component {
           <div className={styles.breadcrumb}>menuName</div>
         </div>
         <div className={styles.right}>
+          <div className={styles.navItem}>
+            <ScreenFull />
+          </div>
           <Popover
             noPadding
             hideArrow
