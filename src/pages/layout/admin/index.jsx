@@ -1,10 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import NavLeft from './navLeft/connect';
+import NavLeft from './navLeft';
 import Header from './header';
 import styles from './index.module.less';
 import Common from '../common';
+import mapDispatchToProps from './actions';
 
 class Index extends React.Component {
   render() {
@@ -24,6 +25,7 @@ class Index extends React.Component {
 
 const mapStateToProps = (state) => ({
   user: state.app.user,
+  nav: state.nav,
 });
 
-export default connect(mapStateToProps)(withRouter(Index));
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Index));

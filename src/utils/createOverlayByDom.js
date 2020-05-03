@@ -19,7 +19,7 @@ const createOverlayByDom = (domId) => {
   domOverlay.id = `${domId}-overlay`;
   domOverlay.style.display = 'block';
   domOverlay.style.position = 'absolute';
-  domOverlay.style.background = 'rgba(0,0,0,0.5)';
+  domOverlay.style.background = 'rgba(0,0,0,0.4)';
   domOverlay.style.zIndex = '9998';
   domOverlay.style.cursor = 'not-allowed';
   const {
@@ -54,7 +54,7 @@ const showDomLoading = (domId) => {
   // 如果domId === 'body'，则全局加载lading
   if (domId === 'body') {
     const bodyOverlay = document.getElementById('body-overlay');
-    bodyOverlay.style.display = 'block';
+    bodyOverlay.style.display = 'flex';
     return;
   }
   const ids = domId instanceof Array ? domId : [domId];

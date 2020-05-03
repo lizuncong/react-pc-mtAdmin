@@ -6,6 +6,32 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="theme-color" content="#000000" />
   <title>react-pc-mtadmin</title>
+  <style>
+    .body-overlay{
+      position: fixed;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      top: 0;
+      bottom: 0;
+      right: 0;
+      left: 0;
+      background: rgba(0,0,0,0.4);
+      z-index: 9998;
+    }
+    .body-overlay .body-loading{
+      display: flex;
+      align-items: center;
+    }
+    .body-overlay img{
+      width: 32px;
+      height: 32px;
+      margin-right: 12px;
+    }
+    .body-overlay span{
+      color: white;
+    }
+  </style>
 </head>
 <body>
 <noscript>You need to enable JavaScript to run this app.</noscript>
