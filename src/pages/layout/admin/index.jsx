@@ -9,12 +9,15 @@ import mapDispatchToProps from './actions';
 
 class Index extends React.Component {
   render() {
-    const { children, user, history } = this.props;
+    const {
+      children, user, history, changeMoreValue,
+      nav,
+    } = this.props;
     return (
       <Common>
-        <NavLeft />
+        <NavLeft changeMoreValue={changeMoreValue} />
         <div className={styles.main}>
-          <Header user={user} history={history} />
+          <Header nav={nav} user={user} history={history} />
           {children}
           {/* <Footer /> */}
         </div>

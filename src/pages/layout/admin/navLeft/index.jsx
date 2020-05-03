@@ -17,12 +17,15 @@ class NavLeft extends React.Component {
   }
 
   componentWillMount() {
-    const { switchMenu } = this.props;
+    const { changeMoreValue } = this.props;
     const menuTreeNode = this.renderMenu(MenuConfig);
     const currentUrl = window.location.hash.replace(/#|\?.*$/g, '');
     const menuItem = this.getMenuItemByUrl(currentUrl, MenuConfig);
     if (menuItem) {
-      switchMenu({ menuId: menuItem.url, menuName: menuItem.title });
+      changeMoreValue({
+        menuId: menuItem.url,
+        menuName: menuItem.title,
+      });
     }
     this.setState({
       menuTreeNode,
@@ -60,9 +63,9 @@ class NavLeft extends React.Component {
   }
 
   handleClick(menuItem) {
-    const { switchMenu } = this.props;
+    const { changeMoreValue } = this.props;
     const menuName = menuItem.item.props.children.props.children;
-    switchMenu({ menuId: menuItem.url, menuName });
+    changeMoreValue({ menuId: menuItem.url, menuName });
     this.setState({
       currentUrl: menuItem.key,
     });

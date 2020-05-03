@@ -192,7 +192,7 @@ class FormItems extends React.Component {
             }
           <Button
             type="primary"
-            icon="search"
+            // icon="search"
             className={styles.search}
             onClick={() => {
               onValueChange && onValueChange(value, { type: 'searchBtn' });
@@ -202,7 +202,7 @@ class FormItems extends React.Component {
           </Button>
           <Button
             type="primary"
-            icon="reload"
+            // icon="reload"
             onClick={() => {
               onValueChange && onValueChange({}, { type: 'resetBtn' });
             }}

@@ -46,11 +46,11 @@ class Header extends React.Component {
   }
 
   render() {
-    const { user } = this.props;
+    const { user, nav } = this.props;
     return (
       <div className={styles.header}>
         <div className={styles.left}>
-          <div className={styles.breadcrumb}>menuName</div>
+          <div className={styles.breadcrumb}>{nav.menuName}</div>
         </div>
         <div className={styles.right}>
           <div className={styles.navItem}>
