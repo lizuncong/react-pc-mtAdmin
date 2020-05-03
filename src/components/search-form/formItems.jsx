@@ -129,7 +129,7 @@ class FormItems extends React.Component {
           <Input
             className={styles.gridItemRight}
             value={value[formItem.dataIndex]}
-            placeholder="请输入订单号"
+            placeholder={formItem.placeholder ? formItem.placeholder : `请输入${formItem.title}`}
             onKeyDown={(e) => {
               // 回车键
               if (e.keyCode === 13) {
