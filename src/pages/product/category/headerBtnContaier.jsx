@@ -4,9 +4,10 @@ import styles from './index.module.less';
 
 class HeaderBtnContainer extends React.Component {
   render() {
+    const { refresh } = this.props;
     return (
       <div className={styles.headerBtnContainer}>
-        <AddBtn />
+        <AddBtn refresh={refresh} />
       </div>
     );
   }

@@ -37,6 +37,7 @@ module.exports = {
     "no-console": "off",
     "no-bitwise": "off",
     "no-plusplus": "off",
+    "react/no-danger": "off",
     "radix": "off",
     "no-multi-assign": "off",
     "class-methods-use-this": "off",

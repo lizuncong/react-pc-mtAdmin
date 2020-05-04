@@ -409,3 +409,15 @@ export function removeClass(ele, cls) {
     ele.className = ele.className.replace(reg, ' ');
   }
 }
+
+
+export const insertArray = (arr, element) => {
+  const newArr = [];
+  arr.forEach((item) => {
+    if (item) {
+      newArr.push(item, element);
+    }
+  });
+  newArr.splice(newArr.length - 1, 1);
+  return newArr;
+};

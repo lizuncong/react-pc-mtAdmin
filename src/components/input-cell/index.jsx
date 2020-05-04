@@ -20,7 +20,7 @@ class InputCell extends React.Component {
           className={styles.right}
           value={value}
           onChange={(e) => {
-            let { val } = e.target;
+            let { value: val } = e.target;
             if (type === 'int') {
               val = val.replace(/[^\d]/g, '');
               if (digits && val.length > digits) return;
