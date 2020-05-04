@@ -45,10 +45,11 @@ const columns = (refresh) => [
         className={styles.click}
         key="2"
         onClick={() => {
-          Modal.error({
+          Modal.confirm({
             title: '删除',
             content: `确认删除${record.categoryName}吗？`,
             okText: '确认',
+            cancelText: '取消',
             onOk: async () => {
               await deleteCategory({ categoryId: record.categoryId });
               refresh();
