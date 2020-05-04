@@ -14,6 +14,7 @@ const columns = (refresh) => [
     dataIndex: 'categoryName',
     key: 'categoryName',
     render: (text) => <div dangerouslySetInnerHTML={{ __html: text }} />,
+    // render: (text) => <div>{text}</div>,
   },
   {
     title: '分类编码',
