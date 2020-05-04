@@ -7,26 +7,20 @@ class Search extends React.Component {
     this.formItems = [
       {
         title: '分类名称',
-        dataIndex: 'name',
+        dataIndex: 'categoryName',
         type: 'input',
       },
     ];
-    this.state = {
-      searchCondition: {},
-    };
   }
 
   render() {
-    const { searchCondition } = this.state;
+    const { searchCondition, onChange } = this.props;
     return (
       <SearchForm
         formItems={this.formItems}
         value={searchCondition}
-        onValueChange={(value) => {
-          console.log('user search value.....', value);
-          this.setState({
-            searchCondition: value,
-          });
+        onValueChange={(value, formItem) => {
+          onChange(value, formItem);
         }}
       />
     );

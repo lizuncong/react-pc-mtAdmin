@@ -69,6 +69,7 @@ class Index extends React.Component {
     this.state = {
       pageNo: 0,
       pageSize: 20,
+      searchCondition: {},
       data: [],
     };
   }
@@ -78,8 +79,8 @@ class Index extends React.Component {
   }
 
   async getList() {
-    const { pageNo, pageSize } = this.state;
-    const result = await getCategoryList({ pageNo, pageSize });
+    const { pageNo, pageSize, searchCondition } = this.state;
+    const result = await getCategoryList({ pageNo, pageSize, ...searchCondition });
     if (result) {
       const { data: { count, rows } } = result;
       console.log('count...', count);
@@ -91,11 +92,22 @@ class Index extends React.Component {
 
   render() {
     const { history } = this.props;
-    const { data } = this.state;
+    const { data, searchCondition } = this.state;
     const cols = columns(() => this.getList());
     return (
       <div className={styles.container}>
-        <Search />
+        <Search
+          searchCondition={searchCondition}
+          onChange={(value, formItem) => {
+            this.setState({
+              searchCondition: value,
+            }, () => {
+              if (formItem.type !== 'input') {
+                this.getList();
+              }
+            });
+          }}
+        />
         <div className={styles.tableContainer}>
           <HeaderBtnContainer
             history={history}

@@ -137,7 +137,7 @@ class FormItems extends React.Component {
               }
             }}
             onChange={(e) => {
-              const { val } = e.target;
+              const { value: val } = e.target;
               this.onFormItemChange({ [formItem.dataIndex]: val }, formItem);
             }}
           />
