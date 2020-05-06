@@ -12,7 +12,7 @@ XSS攻击分类
 2.存储型：存储到DB后读取时注入
 
 XSS攻击注入点：
-1.HTML节点内容
+1.HTML节点内容  
    如<div>{content}</div>。
    如果用户输入的content内容为<script>alert(1)</script>
    则变成<div><script>alert(1)</script></div>，就会弹出一个弹框。不过react已经对
