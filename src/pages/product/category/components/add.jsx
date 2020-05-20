@@ -1,9 +1,9 @@
 import React from 'react';
-import { Button } from 'antd';
-import { addCategory, updateCategory } from '../../../api/category';
-import Modal from '../../../components/modal';
-import styles from './index.module.less';
-import InputCell from '../../../components/input-cell';
+import { Button } from 'antd/lib/index';
+import { addCategory, updateCategory } from '../../../../api/category';
+import Modal from '../../../../components/modal';
+import styles from '../index.module.less';
+import InputCell from '../../../../components/input-cell';
 
 class Index extends React.Component {
   constructor(props) {

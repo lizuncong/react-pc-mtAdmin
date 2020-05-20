@@ -13,6 +13,7 @@ const DetailLayout = loadable(() => import(/* webpackChunkName: "detailLayout" *
 const Home = loadable(() => import(/* webpackChunkName: "home" */'../pages/home'));
 const StoreList = loadable(() => import(/* webpackChunkName: "storeList" */'../pages/store/list'));
 const ProductCategory = loadable(() => import(/* webpackChunkName: "productCategory" */'../pages/product/category'));
+const ProductList = loadable(() => import(/* webpackChunkName: "productList" */'../pages/product/product'));
 const StoreDetail = loadable(() => import(/* webpackChunkName: "storeDetail" */'../pages/store/detail'));
 
 const App = loadable(() => import(/* webpackChunkName: "app" */'../app'));
@@ -45,6 +46,7 @@ class IRouter extends React.Component {
                     <Route path="/home" component={Home} />
                     <Route path="/store/list" component={StoreList} />
                     <Route path="/product/category" component={ProductCategory} />
+                    <Route path="/product/list" component={ProductList} />
                     <Route path="/store/detail/:storeId?" component={StoreDetail} />
                     <Redirect to="/home" />
                     {/* <Route component={NotFound} /> */}
