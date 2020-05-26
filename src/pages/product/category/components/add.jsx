@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button } from 'antd/lib/index';
+import { Button } from 'antd';
 import { addCategory, updateCategory } from '../../../../api/category';
 import Modal from '../../../../components/modal';
 import styles from '../index.module.less';

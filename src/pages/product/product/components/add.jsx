@@ -1,26 +1,106 @@
 import React from 'react';
-import { Button } from 'antd/lib/index';
-import { addCategory, updateCategory } from '../../../../api/category';
+import { Button } from 'antd';
+import { addProduct, updateProduct } from '../../../../api/product';
+import { getCategoryList } from '../../../../api/category';
 import Modal from '../../../../components/modal';
 import styles from '../index.module.less';
 import InputCell from '../../../../components/input-cell';
+import SelectCell from '../../../../components/select-cell';
 
 class Index extends React.Component {
   constructor(props) {
     super(props);
+    this.items = [
+      {
+        title: '商品分类',
+        name: 'categoryId',
+        type: 'select',
+        optionsKey: 'categoryOptions',
+        required: true,
+      },
+      {
+        title: '商品名称',
+        name: 'name',
+        type: 'input',
+        required: true,
+      },
+      {
+        title: '商品价格',
+        name: 'price',
+        type: 'input',
+        inputType: 'number',
+        required: true,
+      },
+      {
+        title: '商品描述',
+        name: 'description',
+        type: 'input',
+      },
+    ];
     this.state = {
-      visible: false,
+      visible: true,
+      categoryOptions: [],
       body: {
-        name: '',
-        code: '',
+        name: undefined, // 商品名称
+        price: undefined, // 商品价格
+        image: [], // 商品图片
+        description: '', // 商品描述
+        categoryId: undefined, // 商品分类
       },
     };
   }
 
-  changeItem(key, value) {
+  changeBodyItem(key, value) {
     const { body } = this.state;
     const bodyTemp = { ...body, ...{ [key]: value } };
     this.setState({ body: bodyTemp });
+  }
+
+  async onVisible() {
+    const result = await getCategoryList({ pageNo: 0, pageSize: 20 });
+    if (result) {
+      this.setState({
+        categoryOptions: result.data.rows.map((item) => ({
+          name: item.categoryName, value: item.categoryId,
+        })),
+      });
+    }
+  }
+
+  renderItem(item) {
+    let itemView = '';
+    const { body } = this.state;
+    switch (item.type) {
+      case 'select':
+        const { [item.optionsKey]: options } = this.state;
+        itemView = (
+          <SelectCell
+            className={styles.inputRow}
+            title={item.title}
+            options={options}
+            value={body[item.name]}
+            onChange={(value) => {
+              this.changeBodyItem(item.name, value);
+            }}
+            required={item.required}
+          />
+        );
+        break;
+      default:
+        itemView = (
+          <InputCell
+            title={item.title}
+            value={body[item.name]}
+            type={item.inputType}
+            className={styles.inputRow}
+            required={item.required}
+            onChange={(val) => {
+              this.changeBodyItem(item.name, val);
+            }}
+          />
+        );
+    }
+    return itemView;
   }
 
   render() {
@@ -45,6 +125,7 @@ class Index extends React.Component {
             this.setState({
               visible: true,
             });
+            this.onVisible();
           }}
         >
           {
@@ -59,18 +140,18 @@ class Index extends React.Component {
           }
         </span>
         <Modal
-          title={`${record ? '编辑' : '新增'}分类`}
+          title={`${record ? '编辑' : '新增'}商品`}
           height="60%"
           visible={visible}
           okButtonProps={{
-            disabled: !body.name || !body.code,
+            // disabled: this.requiredItems.some((item) => !body[item]),
           }}
           onOk={async () => {
             const params = { ...body };
             if (record) {
               params.categoryId = record.categoryId;
             }
-            const result = record ? await updateCategory(params) : await addCategory(params);
+            const result = record ? await updateProduct(params) : await addProduct(params);
             if (result) {
               this.setState({
                 visible: false,
@@ -83,24 +164,9 @@ class Index extends React.Component {
             this.setState({ visible: false });
           }}
         >
-          <InputCell
-            title="分类名称"
-            value={body.name}
-            className={styles.inputRow}
-            required
-            onChange={(val) => {
-              this.changeItem('name', val);
-            }}
-          />
-          <InputCell
-            title="分类编码"
-            value={body.code}
-            className={styles.inputRow}
-            required
-            onChange={(val) => {
-              this.changeItem('code', val);
-            }}
-          />
+          {
+            this.items.map((item) => this.renderItem(item))
+          }
         </Modal>
       </>
     );

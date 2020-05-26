@@ -80,6 +80,7 @@ class NavLeft extends React.Component {
           <h1>MTAdmin</h1>
         </div>
         <Menu
+          mode="inline"
           onClick={(menuItem) => this.handleClick(menuItem)}
           selectedKeys={[currentUrl]}
           theme="dark"

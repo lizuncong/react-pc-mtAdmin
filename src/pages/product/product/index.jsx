@@ -2,7 +2,7 @@ import React from 'react';
 import { Modal } from 'antd';
 import Table from '../../../components/table';
 import styles from './index.module.less';
-import { getCategoryList, deleteCategory } from '../../../api/category';
+import { getProductList, deleteProduct } from '../../../api/product';
 import EditModal from './components/add';
 import Search from './components/search';
 import HeaderBtnContainer from './components/headerBtnContaier';
@@ -51,7 +51,7 @@ const columns = (refresh) => [
             okText: '确认',
             cancelText: '取消',
             onOk: async () => {
-              await deleteCategory({ categoryId: record.categoryId });
+              await deleteProduct({ categoryId: record.categoryId });
               refresh();
             },
           });
@@ -80,7 +80,7 @@ class Index extends React.Component {
 
   async getList() {
     const { pageNo, pageSize, searchCondition } = this.state;
-    const result = await getCategoryList({ pageNo, pageSize, ...searchCondition });
+    const result = await getProductList({ pageNo, pageSize, ...searchCondition });
     if (result) {
       const { data: { count, rows } } = result;
       console.log('count...', count);
