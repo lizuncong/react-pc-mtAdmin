@@ -6,6 +6,7 @@ import Modal from '../../../../components/modal';
 import styles from '../index.module.less';
 import InputCell from '../../../../components/input-cell';
 import SelectCell from '../../../../components/select-cell';
+import UploadCell from '../../../../components/upload-cell';
 
 class Index extends React.Component {
   constructor(props) {
@@ -32,18 +33,26 @@ class Index extends React.Component {
         required: true,
       },
       {
+        title: '商品图片',
+        name: 'productImage',
+        type: 'imgUpload',
+        typeOf: 'array',
+        required: true,
+        maxLength: 5,
+      },
+      {
         title: '商品描述',
         name: 'description',
         type: 'input',
       },
     ];
     this.state = {
-      visible: true,
+      visible: false,
       categoryOptions: [],
       body: {
         name: undefined, // 商品名称
         price: undefined, // 商品价格
-        image: [], // 商品图片
+        productImage: [], // 商品图片
         description: '', // 商品描述
         categoryId: undefined, // 商品分类
       },
@@ -77,6 +86,7 @@ class Index extends React.Component {
           <SelectCell
             className={styles.inputRow}
             title={item.title}
+            key={item.name}
             options={options}
             value={body[item.name]}
             onChange={(value) => {
@@ -86,12 +96,25 @@ class Index extends React.Component {
           />
         );
         break;
+      case 'imgUpload':
+        itemView = (
+          <UploadCell
+            title={item.title}
+            key={item.name}
+            required={item.required}
+            value={body[item.name]}
+            maxLength={item.maxLength}
+            onChange={(value) => this.changeBodyItem(item.name, value)}
+          />
+        );
+        break;
       default:
         itemView = (
           <InputCell
             title={item.title}
             value={body[item.name]}
             type={item.inputType}
+            key={item.name}
             className={styles.inputRow}
             required={item.required}
             onChange={(val) => {
@@ -144,10 +167,12 @@ class Index extends React.Component {
           height="60%"
           visible={visible}
           okButtonProps={{
-            // disabled: this.requiredItems.some((item) => !body[item]),
+            disabled: this.items.some((item) => item.required
+              && (!body[item.name] || (item.typeOf === 'array' && !body[item.name].length))),
           }}
           onOk={async () => {
             const params = { ...body };
+            params.productImage = body.productImage.map((item) => item.compressFile);
             if (record) {
               params.categoryId = record.categoryId;
             }

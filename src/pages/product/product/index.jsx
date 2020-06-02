@@ -1,67 +1,10 @@
 import React from 'react';
-import { Modal } from 'antd';
-import Table from '../../../components/table';
 import styles from './index.module.less';
-import { getProductList, deleteProduct } from '../../../api/product';
-import EditModal from './components/add';
+import Card from './components/card';
+import { getProductList } from '../../../api/product';
 import Search from './components/search';
 import HeaderBtnContainer from './components/headerBtnContaier';
-import { insertArray } from '../../../utils';
 
-const columns = (refresh) => [
-  {
-    title: '分类名称',
-    dataIndex: 'categoryName',
-    key: 'categoryName',
-    render: (text) => <div>{text}</div>,
-  },
-  {
-    title: '分类编码',
-    dataIndex: 'categoryCode',
-    key: 'categoryCode',
-  },
-  {
-    title: '创建用户',
-    dataIndex: 'createdUser',
-    key: 'createdUser',
-  },
-  {
-    title: '创建时间',
-    dataIndex: 'createdAt',
-    key: 'createdAt',
-  },
-  {
-    title: '操作',
-    key: 'action',
-    render: (text, record) => insertArray([
-      <EditModal
-        key="1"
-        record={record}
-        refresh={refresh}
-      >
-        <span className={styles.click}>编辑</span>
-      </EditModal>,
-      <span
-        className={styles.click}
-        key="2"
-        onClick={() => {
-          Modal.confirm({
-            title: '删除',
-            content: `确认删除${record.categoryName}吗？`,
-            okText: '确认',
-            cancelText: '取消',
-            onOk: async () => {
-              await deleteProduct({ categoryId: record.categoryId });
-              refresh();
-            },
-          });
-        }}
-      >
-        删除
-      </span>,
-    ], <span key="3" className={styles.split}>|</span>),
-  },
-];
 
 class Index extends React.Component {
   constructor(props) {
@@ -93,7 +36,6 @@ class Index extends React.Component {
   render() {
     const { history } = this.props;
     const { data, searchCondition } = this.state;
-    const cols = columns(() => this.getList());
     return (
       <div className={styles.container}>
         <Search
@@ -115,11 +57,17 @@ class Index extends React.Component {
               this.getList();
             }}
           />
-          <Table
-            rowKey="categoryId"
-            columns={cols}
-            dataSource={data}
-          />
+          <div className={styles.cardContainer}>
+            { data.map((info) => (
+              <Card
+                info={info}
+                key={info.productId}
+                refresh={() => {
+                  this.getList();
+                }}
+              />
+            ))}
+          </div>
         </div>
       </div>
     );

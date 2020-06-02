@@ -14,7 +14,7 @@ export const getUser = () => (dispatch) => getUserInfo().then((res) => {
       userName: data.userName, // 当前登录用户的姓名
       userId: data.id, // 当前登录用户的id
       phone: data.phone, // 当前登录用户的手机号
-      avatar: `/api${data.avatar}`, // 当前登录用户的头像地址
+      avatar: `${data.avatar}`, // 当前登录用户的头像地址
       gender: data.gender, // 当前登录用户的性别
     },
   }));

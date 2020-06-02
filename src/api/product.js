@@ -2,7 +2,7 @@ import request from '../utils/request';
 
 // 新增商品
 export function addProduct(data) {
-  return request.post({
+  return request.upload({
     url: '/product/create',
     data,
   });
