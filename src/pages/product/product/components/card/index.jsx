@@ -1,6 +1,6 @@
 import React from 'react';
 import styles from './index.module.less';
-import EditProduct from '../edit';
+import EditProduct from '../add';
 import DelProduct from '../delete';
 
 const Card = (props) => {
@@ -25,7 +25,12 @@ const Card = (props) => {
       </div>
       <div className={styles.operate}>
         <div className={styles.bottom}>
-          <EditProduct />
+          <EditProduct
+            record={info}
+            refresh={refresh}
+          >
+            编辑
+          </EditProduct>
           <DelProduct
             productId={info.productId}
             refresh={refresh}

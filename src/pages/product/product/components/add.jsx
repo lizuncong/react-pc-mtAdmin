@@ -11,19 +11,37 @@ import UploadCell from '../../../../components/upload-cell';
 class Index extends React.Component {
   constructor(props) {
     super(props);
-    this.items = [
+    this.state = {
+      visible: false,
+      categoryOptions: [],
+      body: {
+        name: undefined, // 商品名称
+        price: undefined, // 商品价格
+        productImage: [], // 商品图片，包括压缩的及原图
+        imgUrl: [], // 图片链接
+        description: '', // 商品描述
+        categoryId: undefined, // 商品分类
+      },
+    };
+  }
+
+  createItems() {
+    const { body } = this.state;
+    return [
       {
         title: '商品分类',
         name: 'categoryId',
         type: 'select',
         optionsKey: 'categoryOptions',
         required: true,
+        invalid: !body.categoryId,
       },
       {
         title: '商品名称',
         name: 'name',
         type: 'input',
         required: true,
+        invalid: !body.name,
       },
       {
         title: '商品价格',
@@ -31,32 +49,25 @@ class Index extends React.Component {
         type: 'input',
         inputType: 'number',
         required: true,
+        invalid: !body.price,
       },
       {
         title: '商品图片',
         name: 'productImage',
+        urlName: 'imgUrl',
         type: 'imgUpload',
         typeOf: 'array',
         required: true,
         maxLength: 5,
+        invalid: !(body.imgUrl.length + body.productImage.length),
       },
       {
         title: '商品描述',
         name: 'description',
         type: 'input',
+        invalid: !body.description,
       },
     ];
-    this.state = {
-      visible: false,
-      categoryOptions: [],
-      body: {
-        name: undefined, // 商品名称
-        price: undefined, // 商品价格
-        productImage: [], // 商品图片
-        description: '', // 商品描述
-        categoryId: undefined, // 商品分类
-      },
-    };
   }
 
   changeBodyItem(key, value) {
@@ -100,11 +111,17 @@ class Index extends React.Component {
         itemView = (
           <UploadCell
             title={item.title}
+            imgUrl={body[item.urlName]}
             key={item.name}
             required={item.required}
             value={body[item.name]}
             maxLength={item.maxLength}
-            onChange={(value) => this.changeBodyItem(item.name, value)}
+            onChange={(value, imgUrl) => {
+              this.changeBodyItem(item.name, value);
+              if (imgUrl) {
+                this.changeBodyItem(item.urlName, imgUrl);
+              }
+            }}
           />
         );
         break;
@@ -129,6 +146,7 @@ class Index extends React.Component {
   render() {
     const { visible, body } = this.state;
     const { refresh, children, record } = this.props;
+    const items = this.createItems();
     return (
       <>
         <span
@@ -137,12 +155,16 @@ class Index extends React.Component {
               this.setState({
                 body: {
                   name: record.categoryName,
-                  code: record.categoryCode,
+                  price: record.productPrice, // 商品价格
+                  productImage: [], // 商品图片
+                  imgUrl: record.productImages || [],
+                  description: record.description, // 商品描述
+                  categoryId: record.categoryId, // 商品分类
                 },
               });
             } else {
               this.setState({
-                body: {},
+                body: { imgUrl: [], productImage: [] },
               });
             }
             this.setState({
@@ -167,20 +189,20 @@ class Index extends React.Component {
           height="60%"
           visible={visible}
           okButtonProps={{
-            disabled: this.items.some((item) => item.required
-              && (!body[item.name] || (item.typeOf === 'array' && !body[item.name].length))),
+            disabled: items.some((item) => item.invalid),
           }}
           onOk={async () => {
             const params = { ...body };
             params.productImage = body.productImage.map((item) => item.compressFile);
             if (record) {
-              params.categoryId = record.categoryId;
+              params.productId = record.productId;
+              params.imgUrl = JSON.stringify(params.imgUrl.map((item) => item.split('api')[1]));
             }
             const result = record ? await updateProduct(params) : await addProduct(params);
             if (result) {
               this.setState({
                 visible: false,
-                body: {},
+                body: { imgUrl: [], productImage: [] },
               });
               refresh();
             }
@@ -190,7 +212,7 @@ class Index extends React.Component {
           }}
         >
           {
-            this.items.map((item) => this.renderItem(item))
+            items.map((item) => this.renderItem(item))
           }
         </Modal>
       </>

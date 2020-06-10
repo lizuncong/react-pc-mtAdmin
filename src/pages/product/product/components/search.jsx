@@ -6,8 +6,8 @@ class Search extends React.Component {
     super(props);
     this.formItems = [
       {
-        title: '分类名称',
-        dataIndex: 'categoryName',
+        title: '商品名称',
+        dataIndex: 'productName',
         type: 'input',
       },
     ];

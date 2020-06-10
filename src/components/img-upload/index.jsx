@@ -73,36 +73,60 @@ class Upload extends React.Component {
   render() {
     const {
       onChange, maxLength, className, fileObjs,
+      imgUrl = [],
     } = this.props;
     return (
       <div
         className={[styles.uploadContainer, className].join(' ')}
       >
         {
-            !maxLength || fileObjs.length < maxLength
-              ? (
-                <div className={styles.gridItem}>
-                  <div
-                    className={styles.inputContainer}
-                    onClick={() => {
-                      this.fileInput.current.click();
-                    }}
-                  >
-                    <span className={styles.uploadIcon}>+</span>
-                    <input
-                      className={styles.fileInput}
-                      ref={this.fileInput}
-                      type="file"
-                      name="file"
-                      multiple="multiple"
-                      accept="image/*"
-                      onChange={(e) => this.onInputChange(e)}
-                    />
-                  </div>
+          !maxLength || fileObjs.length < (maxLength - imgUrl.length)
+            ? (
+              <div className={styles.gridItem}>
+                <div
+                  className={styles.inputContainer}
+                  onClick={() => {
+                    this.fileInput.current.click();
+                  }}
+                >
+                  <span className={styles.uploadIcon}>+</span>
+                  <input
+                    className={styles.fileInput}
+                    ref={this.fileInput}
+                    type="file"
+                    name="file"
+                    multiple="multiple"
+                    accept="image/*"
+                    onChange={(e) => this.onInputChange(e)}
+                  />
                 </div>
-              )
-              : ''
-          }
+              </div>
+            )
+            : ''
+        }
+        {
+          imgUrl.map((url, index) => (
+            <div
+              className={styles.gridItem}
+              key={index}
+            >
+              <img
+                src={url}
+                alt=""
+              />
+              <MesIcon
+                className={styles.delete}
+                type="icon-Cancel"
+                onClick={() => {
+                  imgUrl.splice(index, 1);
+                  if (onChange) {
+                    onChange([...fileObjs], [...imgUrl]);
+                  }
+                }}
+              />
+            </div>
+          ))
+        }
         {
             fileObjs.map((fileObj, index) => (
               <div

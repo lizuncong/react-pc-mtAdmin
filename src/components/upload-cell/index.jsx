@@ -6,6 +6,7 @@ const UploadCell = (props) => {
   const {
     className, required, title, value = [],
     maxLength = 1,
+    imgUrl = [],
     onChange,
   } = props;
 
@@ -19,6 +20,8 @@ const UploadCell = (props) => {
       </div>
       <div className={styles.right}>
         <ImgUpload
+          compressStatus
+          imgUrl={imgUrl}
           onChange={onChange}
           maxLength={maxLength}
           fileObjs={value}

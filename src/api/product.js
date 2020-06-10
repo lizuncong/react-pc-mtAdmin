@@ -10,7 +10,7 @@ export function addProduct(data) {
 
 // 编辑商品
 export function updateProduct(data) {
-  return request.post({
+  return request.upload({
     url: '/product/update',
     data,
   });
