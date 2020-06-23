@@ -2,6 +2,7 @@ import React from 'react';
 import styles from './index.module.less';
 import EditProduct from '../add';
 import DelProduct from '../delete';
+import UpdateStatus from '../updateStatus';
 
 const Card = (props) => {
   const { info, refresh } = props;
@@ -25,6 +26,10 @@ const Card = (props) => {
       </div>
       <div className={styles.operate}>
         <div className={styles.bottom}>
+          <UpdateStatus
+            record={info}
+            refresh={refresh}
+          />
           <EditProduct
             record={info}
             refresh={refresh}
