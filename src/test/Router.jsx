@@ -4,11 +4,13 @@ import {
 } from 'react-router-dom';
 import loadable from '@loadable/component';
 
-import Home from '../pages/home';
-
-const App = loadable(() => import(/* webpackChunkName: "app" */'./App'));
-const AdminLayout = loadable(() => import(/* webpackChunkName: "nav" */'./Nav'));
-const Login = loadable(() => import(/* webpackChunkName: "login" */'./Login'));
+import Home from './Home';
+import App from './App';
+import Login from './login';
+import AdminLayout from './Nav';
+// const App = loadable(() => import(/* webpackChunkName: "app" */'./App'));
+// const AdminLayout = loadable(() => import(/* webpackChunkName: "nav" */'./Nav'));
+// const Login = loadable(() => import(/* webpackChunkName: "login" */'./Login'));
 
 
 class IRouter extends React.Component {
