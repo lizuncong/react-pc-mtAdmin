@@ -62,19 +62,19 @@ module.exports = (mode) => {
     module: {
       strictExportPresence: true,
       rules: [
-        {
-          test: /\.jsx?$/,
-          enforce: 'pre',
-          use: [
-            {
-              options: {
-                cache: true,
-              },
-              loader: 'eslint-loader',
-            },
-          ],
-          include: path.resolve(__dirname, '../src'),
-        },
+        // {
+        //   test: /\.jsx?$/,
+        //   enforce: 'pre',
+        //   use: [
+        //     {
+        //       options: {
+        //         cache: true,
+        //       },
+        //       loader: 'eslint-loader',
+        //     },
+        //   ],
+        //   include: path.resolve(__dirname, '../src'),
+        // },
         {
           oneOf: [
             {
