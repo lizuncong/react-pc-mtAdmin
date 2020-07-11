@@ -5,7 +5,7 @@ import { Provider } from 'react-redux';
 import Router from './router';
 import store from './redux/store';
 import './style/common.less';
-import App from './test/Router';
+import Router2 from './test/Router';
 
 // const rootElement = document.getElementById('root');
 // ReactDOM.render(
@@ -16,5 +16,5 @@ import App from './test/Router';
 // );
 
 ReactDOM.render((
-  <App />
+  <Router2 />
 ), document.getElementById('root'));
