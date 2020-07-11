@@ -4,7 +4,7 @@ const Home = () => {
   console.log('rendered...home');
   return (
     <div>
-      <h1>Welcome to the Tornadoes Website!</h1>
+      <h1>这是首页</h1>
     </div>
   );
 };
