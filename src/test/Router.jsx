@@ -2,15 +2,12 @@ import React from 'react';
 import {
   HashRouter, Route, Switch, Redirect,
 } from 'react-router-dom';
-import loadable from '@loadable/component';
 
 import Home from './Home';
 import App from './App';
 import Login from './login';
-import AdminLayout from './Nav';
-// const App = loadable(() => import(/* webpackChunkName: "app" */'./App'));
-// const AdminLayout = loadable(() => import(/* webpackChunkName: "nav" */'./Nav'));
-// const Login = loadable(() => import(/* webpackChunkName: "login" */'./Login'));
+import Nav from './Nav';
+import Nav2 from './Nav2';
 
 
 class IRouter extends React.Component {
@@ -21,13 +18,18 @@ class IRouter extends React.Component {
           <Switch>
             <Route path="/login" component={Login} />
             <Route
+              path="/nav2"
+              component={Nav2}
+            />
+            <Route
               path="/"
-              render={() => (
-                <AdminLayout>
+              component={() => (
+                <Nav>
                   <Switch>
-                    <Route path="/home" component={Home} />
+                    <Route path="/nav1" component={Home} />
+                    <Redirect to="/nav1" />
                   </Switch>
-                </AdminLayout>
+                </Nav>
               )}
             />
           </Switch>

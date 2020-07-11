@@ -1,18 +1,9 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 class App extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      hasError: false,
-      error: '',
-    };
-  }
-
-  static getDerivedStateFromError(error) {
-    // Update state so the next render will show the fallback UI.
-    console.log('getDerivedStateFromError..', error);
-    return { hasError: true, error: error.toString() };
   }
 
   componentDidMount() {
@@ -23,13 +14,13 @@ class App extends React.Component {
 
   render() {
     const { children } = this.props;
-    const { hasError, error } = this.state;
-    if (hasError) {
-      return <div>{error}</div>;
-    }
 
     return (
       <div className="app">
+        <ul>
+          <li><Link to="/nav1">子路由不会渲染的写法</Link></li>
+          <li><Link to="/nav2">会引起子路由渲染的写法</Link></li>
+        </ul>
         {children}
       </div>
     );
