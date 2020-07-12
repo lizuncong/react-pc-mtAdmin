@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Switch, Route } from 'react-router-dom';
 import Home from './Home';
 
-const Nav = () => {
+const Nav = (args) => {
   const [count, setCount] = useState(0);
   console.log('render..nav');
   return (
@@ -13,6 +13,7 @@ const Nav = () => {
     >
       <div>
         这种写法，Nav页面render，会导致Home也render，
+        <div>{args.location.pathname}</div>
         <span style={{
           color: 'red',
         }}
@@ -21,6 +22,7 @@ const Nav = () => {
         </span>
       </div>
       <Switch>
+        {/* <Route path="/" component={(props) => <Home {...props} />} /> */}
         <Route path="/" component={Home} />
       </Switch>
     </div>

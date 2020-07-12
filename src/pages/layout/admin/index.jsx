@@ -10,10 +10,8 @@ import mapDispatchToProps from './actions';
 class Index extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      testCount: 0,
-    };
   }
+
 
   render() {
     const {
@@ -25,14 +23,7 @@ class Index extends React.Component {
     return (
       <Common>
         <NavLeft changeMoreValue={changeMoreValue} />
-        <div
-          className={styles.main}
-          onClick={() => {
-            this.setState({
-              testCount: testCount + 1,
-            });
-          }}
-        >
+        <div className={styles.main}>
           <Header nav={nav} user={user} history={history} />
           {children}
           {/* <Footer /> */}
@@ -46,7 +37,5 @@ const mapStateToProps = (state) => ({
   user: state.app.user,
   nav: state.nav,
 });
-
-// export default connect(mapStateToProps, mapDispatchToProps)(Index);
 
 export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Index));

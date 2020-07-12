@@ -9,6 +9,12 @@ import Login from './login';
 import Nav from './Nav';
 import Nav2 from './Nav2';
 
+const Test = () => {
+  console.log('render.....nav...Test...====================');
+  return (
+    <div>Test</div>
+  );
+};
 
 class IRouter extends React.Component {
   render() {
@@ -23,8 +29,9 @@ class IRouter extends React.Component {
             />
             <Route
               path="/"
-              component={() => (
-                <Nav>
+              render={(props) => (
+                <Nav {...props}>
+                  <Test />
                   <Switch>
                     <Route path="/nav1" component={Home} />
                     <Redirect to="/nav1" />

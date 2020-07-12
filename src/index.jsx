@@ -7,7 +7,7 @@ import store from './redux/store';
 import './style/common.less';
 import Router2 from './test/Router';
 
-// const rootElement = document.getElementById('root');
+const rootElement = document.getElementById('root');
 // ReactDOM.render(
 //   <Provider store={store}>
 //     <Router />
