@@ -49,8 +49,9 @@ class Login extends React.Component {
           />
           <Button
             type="primary"
+            id="login-btn"
             onClick={async () => {
-              const result = await login({ phone: username, password });
+              const result = await login({ phone: username, password, domId: '#login-btn' });
               if (result) {
                 history.replace(this.redirectUrl);
               }
