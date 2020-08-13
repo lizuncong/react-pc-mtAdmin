@@ -73,15 +73,24 @@ class NavLeft extends React.Component {
 
   render() {
     const { currentUrl, menuTreeNode } = this.state;
+    const { changeMoreValue, nav } = this.props;
     return (
       <div className={styles.navLeftContent}>
-        <div className={styles.logo}>
+        <div
+          className={styles.logo}
+          onClick={() => {
+            changeMoreValue({
+              count: nav.count + 1,
+              menuId: 123,
+            });
+          }}
+        >
           <img src="/assets/logo-ant.svg" alt="" />
           <h1>MTAdmin</h1>
         </div>
         <Menu
           mode="inline"
-          onClick={(menuItem) => this.handleClick(menuItem)}
+          onClick={(menuItem) => this.handleClicc(menuItem)}
           selectedKeys={[currentUrl]}
           theme="dark"
         >

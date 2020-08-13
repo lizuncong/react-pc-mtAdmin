@@ -4,6 +4,7 @@ import { CHANGE_MORE_VALUE, RESET } from './types';
 const defaultState = {
   menuId: '',
   menuName: '',
+  count: 0,
 };
 
 export default function (state = defaultState, action) {

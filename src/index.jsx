@@ -8,13 +8,13 @@ import './style/common.less';
 import Router2 from './test/Router';
 
 const rootElement = document.getElementById('root');
-// ReactDOM.render(
-//   <Provider store={store}>
-//     <Router />
-//   </Provider>,
-//   rootElement,
-// );
+ReactDOM.render(
+  <Provider store={store}>
+    <Router />
+  </Provider>,
+  rootElement,
+);
 
-ReactDOM.render((
-  <Router2 />
-), document.getElementById('root'));
+// ReactDOM.render((
+//   <Router2 />
+// ), document.getElementById('root'));
