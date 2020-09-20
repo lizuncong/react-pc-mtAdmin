@@ -15,6 +15,7 @@ const StoreList = loadable(() => import(/* webpackChunkName: "storeList" */'../p
 const ProductCategory = loadable(() => import(/* webpackChunkName: "productCategory" */'../pages/product/category'));
 const ProductList = loadable(() => import(/* webpackChunkName: "productList" */'../pages/product/product'));
 const StoreDetail = loadable(() => import(/* webpackChunkName: "storeDetail" */'../pages/store/detail'));
+const Test = loadable(() => import(/* webpackChunkName: "test" */'../pages/test'));
 
 const App = loadable(() => import(/* webpackChunkName: "app" */'../app'));
 
@@ -28,6 +29,7 @@ class IRouter extends React.Component {
             <Route path="/redux-demo2" component={ReduxDemo2} />
             <Route path="/login" component={Login} />
             <Route path="/register" component={Register} />
+            <Route path="/test" component={Test} />
             <Route
               path="/detail"
               render={() => (
