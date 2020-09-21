@@ -2,6 +2,7 @@ import React, { memo } from 'react';
 import { Input } from 'antd';
 import TransFormTable from 'components/tranform-table';
 
+// 后端返回的数据
 const data = [
   {
     sizeName: 'L', // 尺码
