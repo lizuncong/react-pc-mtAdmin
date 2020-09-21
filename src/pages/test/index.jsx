@@ -1,42 +1,68 @@
 import React, { memo } from 'react';
-import { Table } from 'antd';
+import { Input } from 'antd';
+import TransFormTable from 'components/tranform-table';
 
-const dataSource = [
+const data = [
   {
-    key: '1',
-    name: '胡彦斌',
-    age: 32,
-    address: '西湖区湖底公园1号',
+    sizeName: 'L', // 尺码
+    orderNum: 20, // 下单数
+    stockNum: 32, // 库存数
   },
   {
-    key: '2',
-    name: '胡彦祖',
-    age: 42,
-    address: '西湖区湖底公园1号',
+    sizeName: 'XL', // 尺码
+    orderNum: 28, // 下单数
+    stockNum: 26, // 库存数
+  },
+  {
+    sizeName: 'XXL', // 尺码
+    orderNum: 19, // 下单数
+    stockNum: 56, // 库存数
   },
 ];
 
-const columns = [
+const colTemp = [ // 构造前两列的数据
   {
-    title: '姓名',
-    dataIndex: 'name',
-    key: 'name',
+    sizeName: '尺码',
+    width: 140,
+    orderNum: '下单数',
+    stockNum: '库存数',
   },
   {
-    title: '年龄',
-    dataIndex: 'age',
-    key: 'age',
-  },
-  {
-    title: '住址',
-    dataIndex: 'address',
-    key: 'address',
+    sizeName: '总数',
+    width: 120,
+    orderNum: data.reduce((sum, cur) => sum + Number(cur.orderNum), 0),
+    stockNum: data.reduce((sum, cur) => sum + Number(cur.stockNum), 0),
   },
 ];
+const rows = [
+  {
+    dataIndex: 'orderNum',
+    renderCol: (col, index) => (
+      index < 2
+        ? col.orderNum
+        : (
+          <Input
+            value={col.orderNum}
+            placeholder=""
+            onChange={(e) => {
+              col.orderNum = e.target.value;
+            }}
+          />
+        )
+    ),
+  },
+  {
+    dataIndex: 'stockNum',
+  },
+];
+
 const Index = memo(() => (
-  <div>
-    <Table dataSource={dataSource} columns={columns} />;
-  </div>
+  <TransFormTable
+    colWidth={100}
+    titleIndex="sizeName"
+    columns={[...colTemp, ...data]}
+    dataSource={rows}
+  />
 ));
 
 
