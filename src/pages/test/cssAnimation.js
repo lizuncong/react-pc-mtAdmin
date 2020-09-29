@@ -63,7 +63,9 @@ const cssAnimation = (node, transitionName, endCallback) => {
     node.rcEndListener();
   }
 
+  console.log('1....', node.rcEndListener);
   node.rcEndListener = (e) => {
+    console.log('rcEndListent...');
     if (e && e.target !== node) {
       return;
     }
@@ -87,6 +89,7 @@ const cssAnimation = (node, transitionName, endCallback) => {
       end();
     }
   };
+  console.log('222');
   Event.addEndEventListener(node, node.rcEndListener);
 
   if (start) {

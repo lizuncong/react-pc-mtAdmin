@@ -5,7 +5,6 @@ import './index.less';
 const Index = memo(() => {
   const [show, setShow] = useState(false);
   const boxRef = useRef(null);
-  console.log((boxRef.current || {}).offsetHeight);
   return (
     <div className="test-container">
       <div
@@ -18,6 +17,7 @@ const Index = memo(() => {
         onTransitionEnd={() => {
           const box = boxRef.current;
           box.style.display = show ? '' : 'none';
+          box.style.opacity = show ? '' : '0';
           box.classList.remove('collapse-active');
         }}
       >
@@ -27,8 +27,11 @@ const Index = memo(() => {
         <div>这是一段文本</div>
       </div>
       <div
+        style={{ marginBottom: '100px' }}
         onClick={() => {
           const box = boxRef.current;
+          box.style.display = '';
+          box.style.opacity = '';
           box.classList.add('collapse-active');
           setShow(!show);
           // if (show) {
