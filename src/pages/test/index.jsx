@@ -5,10 +5,41 @@ import './index.less';
 const Index = memo(() => {
   const [show, setShow] = useState(false);
   const boxRef = useRef(null);
+  console.log((boxRef.current || {}).offsetHeight);
   return (
     <div className="test-container">
-      <div ref={boxRef} className="box">
-        box
+      <div
+        style={{
+          height: show ? '150px' : 0,
+          // display: show ? '' : 'none',
+        }}
+        ref={boxRef}
+        className={['box'].join(' ')}
+        onTransitionEnd={() => {
+          const box = boxRef.current;
+          box.style.display = show ? '' : 'none';
+          box.classList.remove('collapse-active');
+        }}
+      >
+        <div>这是一段文本</div>
+        <div>这是一段文本</div>
+        <div>这是一段文本</div>
+        <div>这是一段文本</div>
+      </div>
+      <div
+        onClick={() => {
+          const box = boxRef.current;
+          box.classList.add('collapse-active');
+          setShow(!show);
+          // if (show) {
+          //   box.style.height = `${box.offsetHeight}px`;
+          // } else {
+          //   const height = box.offsetHeight;
+          //   box.style.height = 0;
+          // }
+        }}
+      >
+        切换
       </div>
       <div
         onClick={() => {
