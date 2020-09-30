@@ -1,11 +1,13 @@
 import Event from './Event';
 
 const isCssAnimationSupported = Event.endEvents.length !== 0;
-const capitalPrefixes = ['Webkit',
+const capitalPrefixes = [
+  'Webkit',
   'Moz',
   'O',
   // ms is special .... !
-  'ms'];
+  'ms',
+];
 const prefixes = ['-webkit-', '-moz-', '-o-', 'ms-', ''];
 
 function getStyleProperty(node, name) {
