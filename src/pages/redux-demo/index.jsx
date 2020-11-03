@@ -11,6 +11,7 @@ class ReduxDemo extends React.Component {
 
   render() {
     const { count, changeMoreValue } = this.props;
+    console.log('redux demo render....');
     return (
       <div>
         <div>

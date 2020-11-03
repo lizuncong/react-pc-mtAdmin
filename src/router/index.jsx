@@ -21,6 +21,7 @@ const App = loadable(() => import(/* webpackChunkName: "app" */'../app'));
 
 class IRouter extends React.Component {
   render() {
+    console.log('router......render...');
     return (
       <HashRouter>
         <App>
