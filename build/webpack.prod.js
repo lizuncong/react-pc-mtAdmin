@@ -44,5 +44,6 @@ const prodConfig = {
     ],
   },
 };
+
 const config = merge(baseConfig('production'), prodConfig);
 module.exports = config;
